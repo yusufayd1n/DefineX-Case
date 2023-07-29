@@ -5,6 +5,10 @@
     <string name="tab_basket">Sepet</string>
     <string name="tab_fav">Favoriler</string>
     <string name="tab_profile">Profil</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="case_study">Definex Case Study</string>
+    <string name="email">E-mail Adresi</string>
+    <string name="password">Şifreniz</string>
+    <string name="email_error">E-mail Adresinizi Kontrol Edin Lütfen</string>
+    <string name="password_error">Şifreniz çok kısa</string>
+    <string name="login">Giriş Yap</string>
 </resources>
