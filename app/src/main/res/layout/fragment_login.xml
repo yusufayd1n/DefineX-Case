@@ -91,9 +91,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
-        android:textSize="14sp"
-        android:text="@string/login"
         android:background="@drawable/bg_login_button"
+        android:text="@string/login"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_login_password" />
@@ -101,11 +101,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/btn_login">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="- - - - - - -"
+            android:textColor="@color/passive_end_icon"
+            android:textSize="10sp" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:padding="4dp"
+            android:background="@drawable/bg_forgot_password_btn"
+            android:text="@string/forgot_my_password"
+            android:textColor="@color/material_dynamic_primary0"
+            android:textSize="8sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- - - - - - -"
+            android:textColor="@color/passive_end_icon"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
