@@ -1,5 +1,6 @@
-package com.example.definexcase.ui.authentication
+package com.example.definexcase.ui.authentication.login
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.LinearGradient
@@ -9,16 +10,23 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.definexcase.MainActivity
 import com.example.definexcase.R
+import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.databinding.FragmentLoginBinding
+import com.example.definexcase.viewmodel.LoginViewModel
 
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var viewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentLoginBinding.inflate(layoutInflater)
@@ -27,8 +35,17 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        viewModel.postLogin(LoginRequest("asfd", "agsf"))
         paintTextView()
         setListeners()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        viewModel.loginLiveData.observe(viewLifecycleOwner) { response ->
+            Toast.makeText(requireContext(), response.token.toString(), Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -55,6 +72,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun setListeners() {
+        binding.btnLogin.setOnClickListener {
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+        }
         binding.etLoginEmail.setOnFocusChangeListener { _, focus ->
             if (focus) {
                 binding.tilLoginEmail.boxStrokeColor =
