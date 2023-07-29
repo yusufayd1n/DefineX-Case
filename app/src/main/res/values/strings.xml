@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DefineXCase</string>
+    <string name="tab_home">Keşfet</string>
+    <string name="tab_book">Kitap</string>
+    <string name="tab_basket">Sepet</string>
+    <string name="tab_fav">Favoriler</string>
+    <string name="tab_profile">Profil</string>
 </resources>
