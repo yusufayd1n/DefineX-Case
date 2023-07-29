@@ -8,4 +8,6 @@
     <color name="error_red">#EB5757</color>
     <color name="passive_end_icon">#BFB5B5</color>
     <color name="active_end_icon">#5F5F5F</color>
+    <color name="facebook_button">#3B5999</color>
+    <color name="twitter_button">#55ACEE</color>
 </resources>

@@ -12,4 +12,6 @@
     <string name="password_error">Şifreniz çok kısa</string>
     <string name="login">Giriş Yap</string>
     <string name="forgot_my_password">Şifremi Unuttum</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
 </resources>
