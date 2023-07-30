@@ -10,9 +10,9 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ServiceInterface {
-    @POST("https://teamdefinex-mobile-auth-casestudy.vercel.app/login")
+    @POST("login")
     fun postLogin(@Body loginRequest: LoginRequest): Single<LoginResponse>
 
-    @GET("https://teamdefinex-mobile-auth-casestudy.vercel.app/discoverFirstHorizontalList")
+    @GET("discoverFirstHorizontalList")
     fun getFirstList(@Header("token") token: String): Single<FirstListResponse>
 }

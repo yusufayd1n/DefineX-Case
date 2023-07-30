@@ -2,28 +2,35 @@ package com.example.definexcase.view.home
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.definexcase.R
+import com.example.definexcase.adapter.ProductsAdapter
+import com.example.definexcase.api.model.FirstListResponse
 import com.example.definexcase.consts.Constants.Companion.TOKEN
+import com.example.definexcase.databinding.FragmentHomeBinding
 import com.example.definexcase.viewmodel.HomeViewModel
 
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     var token: String = ""
+    private lateinit var binding: FragmentHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+        token = loadData(requireContext(), TOKEN).toString()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        token = loadData(requireContext(), TOKEN).toString()
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         viewModel.getFirstList(token)
         setObservers()
@@ -32,9 +39,9 @@ class HomeFragment : Fragment() {
     private fun setObservers() {
         viewModel.firstListLiveData.observe(viewLifecycleOwner) { response ->
             if (response.isSuccess) {
-                Log.d("FIRSTLISTITEMS", response.toString())
+                setAdapter(response)
             } else {
-                Log.d("FIRSTLISTERROR", viewModel.firstListError.toString())
+
             }
         }
     }
@@ -42,12 +49,19 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return binding.root
     }
 
-    fun loadData(context: Context, key: String): String? {
+    private fun setAdapter(response: FirstListResponse) {
+        val productsAdapter = ProductsAdapter(response, requireContext())
+        binding.rvProducts.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvProducts.adapter = productsAdapter
+    }
+
+    private fun loadData(context: Context, key: String): String? {
         val sharedPreferences =
             context.getSharedPreferences(key, Context.MODE_PRIVATE)
         return sharedPreferences.getString(key, "")

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:background="@drawable/bg_layout"
@@ -12,8 +12,9 @@
         <ImageView
             android:id="@+id/iv_product"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="140dp"
             android:layout_margin="4dp"
+            android:contentDescription="@string/app_name"
             tools:src="@drawable/placeholder" />
 
         <TextView
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/roboto_medium"
             android:textColor="@color/text_color_black"
             android:textSize="14sp"
             tools:text="19,99 $US" />
@@ -49,16 +50,24 @@
                 android:id="@+id/tv_old_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/text_color_black"
                 android:textSize="12sp"
-                tools:text="39,99 $US • " />
+                tools:text="39,99 $US " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto"
+                android:text=" • "
+                android:textColor="@color/text_color_black"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_discount"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto"

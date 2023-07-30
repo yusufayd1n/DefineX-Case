@@ -8,11 +8,11 @@ data class FirstListResponse(
 ) {
     data class items(
         val description: String,
-        val discount: String,
+        val discount: String = "",
         val imageUrl: String,
-        val oldPrice: OldPrice,
+        val oldPrice: OldPrice?,
         val price: Price,
-        val ratePercentage: Any
+        val ratePercentage: String? = ""
     ) {
         data class OldPrice(
             val currency: String,
