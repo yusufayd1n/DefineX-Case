@@ -1,4 +1,4 @@
-package com.example.definexcase.ui.home
+package com.example.definexcase.view.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

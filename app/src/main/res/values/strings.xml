@@ -14,4 +14,5 @@
     <string name="forgot_my_password">Şifremi Unuttum</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
+    <string name="login_error">Kullanıcı adı veya şifre yanlış!</string>
 </resources>

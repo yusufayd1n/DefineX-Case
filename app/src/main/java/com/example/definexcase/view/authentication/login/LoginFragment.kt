@@ -1,9 +1,10 @@
-package com.example.definexcase.ui.authentication.login
+package com.example.definexcase.view.authentication.login
 
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.LinearGradient
+import android.graphics.Paint
 import android.graphics.Shader
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.definexcase.MainActivity
 import com.example.definexcase.R
 import com.example.definexcase.api.model.LoginRequest
@@ -40,16 +40,17 @@ class LoginFragment : Fragment() {
         paintTextView()
         setListeners()
         setObservers()
+        //for discount line
+        //binding.tvCase.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
     }
 
     private fun setObservers() {
         viewModel.loginLiveData.observe(viewLifecycleOwner) { response ->
-            Log.d("LOGINRESPONSE",response.toString())
             if (response.isSuccess) {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(requireContext(), "HATA", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.login_error), Toast.LENGTH_LONG).show()
             }
         }
     }

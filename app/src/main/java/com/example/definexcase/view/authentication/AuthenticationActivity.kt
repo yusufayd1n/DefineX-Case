@@ -1,8 +1,7 @@
-package com.example.definexcase.ui.authentication
+package com.example.definexcase.view.authentication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.definexcase.R
 import com.example.definexcase.databinding.ActivityAuthenticationBinding
 
 class AuthenticationActivity : AppCompatActivity() {
