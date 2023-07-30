@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +37,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        viewModel.postLogin(LoginRequest("asfd", "agsf"))
         paintTextView()
         setListeners()
         setObservers()
@@ -44,7 +44,13 @@ class LoginFragment : Fragment() {
 
     private fun setObservers() {
         viewModel.loginLiveData.observe(viewLifecycleOwner) { response ->
-            Toast.makeText(requireContext(), response.token.toString(), Toast.LENGTH_SHORT).show()
+            Log.d("LOGINRESPONSE",response.toString())
+            if (response.isSuccess) {
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "HATA", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -72,10 +78,6 @@ class LoginFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.btnLogin.setOnClickListener {
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-        }
         binding.etLoginEmail.setOnFocusChangeListener { _, focus ->
             if (focus) {
                 binding.tilLoginEmail.boxStrokeColor =
@@ -183,7 +185,14 @@ class LoginFragment : Fragment() {
                 )
                 binding.tilLoginPassword.hint = getString(R.string.password)
             }
-
+        }
+        binding.btnLogin.setOnClickListener {
+            viewModel.postLogin(
+                LoginRequest(
+                    binding.etLoginEmail.text.toString(),
+                    binding.etLoginPassword.text.toString()
+                )
+            )
         }
     }
 
