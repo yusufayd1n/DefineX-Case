@@ -1,5 +1,6 @@
 package com.example.definexcase.api
 
+import com.example.definexcase.api.model.FirstListResponse
 import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.api.model.LoginResponse
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -19,5 +20,9 @@ class CaseAPIService {
 
     fun login(loginRequest: LoginRequest): Single<LoginResponse> {
         return api.postLogin(loginRequest)
+    }
+
+    fun getFirstList(token: String): Single<FirstListResponse> {
+        return api.getFirstList(token)
     }
 }
