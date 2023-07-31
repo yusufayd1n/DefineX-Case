@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.definexcase.R
 import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.databinding.ThirdItemProductsBinding
+import com.example.definexcase.util.downloadFromUrl
 
 class ThirdProductsAdapter(val productsList: ListResponse, val context: Context) :
     RecyclerView.Adapter<ThirdProductsAdapter.ProductsViewHolder>() {
@@ -36,12 +37,7 @@ class ThirdProductsAdapter(val productsList: ListResponse, val context: Context)
         holder.binding.ratingBar.rating =
             getRating(productsList.list[position].ratePercentage.toString())
         if (holder.binding.ratingBar.rating == 0f) holder.binding.ratingBar.visibility = View.INVISIBLE
-        Glide.with(context)
-            .load(productsList.list[position].imageUrl) // image url
-            .placeholder(R.drawable.ic_email) // any placeholder to load at start
-            .error(R.drawable.ic_facebook)  // any image in case of error
-            .centerCrop()
-            .into(holder.binding.ivProduct)
+        holder.binding.ivProduct.downloadFromUrl(productsList.list[position].imageUrl)
         if (productsList.list[position].oldPrice == null) {
             val price =
                 productsList.list[position].price.value.toString() + " " + productsList.list[position].price.currency + "US"

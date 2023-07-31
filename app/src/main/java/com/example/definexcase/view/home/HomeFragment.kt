@@ -94,8 +94,6 @@ class HomeFragment : Fragment() {
             GridLayoutManager(requireContext(), 2)
         rv.adapter = productsAdapter
     }
-    //val layoutManager = GridLayoutManager(requireActivity(), 2)
-    //        binding.rvProducts.layoutManager = layoutManager
 
     private fun loadData(context: Context, key: String): String? {
         val sharedPreferences =

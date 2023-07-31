@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.definexcase.R
 import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.databinding.SecondItemProductsBinding
+import com.example.definexcase.util.downloadFromUrl
 
 class SecondProductsAdapter(val productsList: ListResponse, val context: Context) :
     RecyclerView.Adapter<SecondProductsAdapter.ProductsViewHolder>() {
@@ -30,12 +31,7 @@ class SecondProductsAdapter(val productsList: ListResponse, val context: Context
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         holder.binding.tvTitle.text = productsList.list[position].description
-        Glide.with(context)
-            .load(productsList.list[position].imageUrl) // image url
-            .placeholder(R.drawable.ic_email) // any placeholder to load at start
-            .error(R.drawable.ic_facebook)  // any image in case of error
-            .centerCrop()
-            .into(holder.binding.ivProduct)
+        holder.binding.ivProduct.downloadFromUrl(productsList.list[position].imageUrl)
         val price =
             productsList.list[position].price.value.toString() + " " + productsList.list[position].price.currency + "US"
         val oldPrice =
