@@ -64,9 +64,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val view = binding.root
-        return view
-
+        return binding.root
     }
 
     private fun paintTextView() {
@@ -205,7 +203,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun saveData(key: String, data: String) {
-        val sharedPreferences = context!!.getSharedPreferences(key, MODE_PRIVATE)
+        val sharedPreferences = requireContext().getSharedPreferences(key, MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString(key, data)
         editor.apply()
