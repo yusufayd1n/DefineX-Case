@@ -2,8 +2,6 @@ package com.example.definexcase.adapter
 
 import android.content.Context
 import android.graphics.Paint
-import android.graphics.Typeface
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +10,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.definexcase.R
-import com.example.definexcase.api.model.FirstListResponse
-import com.example.definexcase.databinding.ItemProductsBinding
+import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.databinding.ThirdItemProductsBinding
 
-class ThirdProductsAdapter(val productsList: FirstListResponse, val context: Context) :
+class ThirdProductsAdapter(val productsList: ListResponse, val context: Context) :
     RecyclerView.Adapter<ThirdProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: ThirdItemProductsBinding) :

@@ -2,17 +2,15 @@ package com.example.definexcase.adapter
 
 import android.content.Context
 import android.graphics.Paint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.definexcase.R
-import com.example.definexcase.api.model.FirstListResponse
-import com.example.definexcase.databinding.ItemProductsBinding
+import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.databinding.SecondItemProductsBinding
 
-class SecondProductsAdapter(val productsList: FirstListResponse, val context: Context) :
+class SecondProductsAdapter(val productsList: ListResponse, val context: Context) :
     RecyclerView.Adapter<SecondProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: SecondItemProductsBinding) :

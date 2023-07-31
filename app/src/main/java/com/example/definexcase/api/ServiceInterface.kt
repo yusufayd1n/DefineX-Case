@@ -1,6 +1,6 @@
 package com.example.definexcase.api
 
-import com.example.definexcase.api.model.FirstListResponse
+import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.api.model.LoginResponse
 import io.reactivex.Single
@@ -14,11 +14,11 @@ interface ServiceInterface {
     fun postLogin(@Body loginRequest: LoginRequest): Single<LoginResponse>
 
     @GET("discoverFirstHorizontalList")
-    fun getFirstList(@Header("token") token: String): Single<FirstListResponse>
+    fun getFirstList(@Header("token") token: String): Single<ListResponse>
 
     @GET("discoverSecondHorizontalList")
-    fun getSecondList(@Header("token") token: String): Single<FirstListResponse>
+    fun getSecondList(@Header("token") token: String): Single<ListResponse>
 
     @GET("discoverThirthTwoColumnList")
-    fun getThirdList(@Header("token") token: String): Single<FirstListResponse>
+    fun getThirdList(@Header("token") token: String): Single<ListResponse>
 }

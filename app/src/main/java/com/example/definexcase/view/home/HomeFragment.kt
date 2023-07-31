@@ -2,7 +2,6 @@ package com.example.definexcase.view.home
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.definexcase.R
 import com.example.definexcase.adapter.ProductsAdapter
 import com.example.definexcase.adapter.SecondProductsAdapter
 import com.example.definexcase.adapter.ThirdProductsAdapter
-import com.example.definexcase.api.model.FirstListResponse
+import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentHomeBinding
 import com.example.definexcase.viewmodel.HomeViewModel
@@ -63,7 +61,7 @@ class HomeFragment : Fragment() {
             if (response.isSuccess) {
                 setThirdAdapter(response, binding.rvThirdProducts)
             } else {
-                Log.d("SecondListError", viewModel.secondListError.toString())
+                Log.d("ThirdListError", viewModel.secondListError.toString())
             }
         }
     }
@@ -76,21 +74,21 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun setAdapter(response: FirstListResponse, rv: RecyclerView) {
+    private fun setAdapter(response: ListResponse, rv: RecyclerView) {
         val productsAdapter = ProductsAdapter(response, requireContext())
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
     }
 
-    private fun setSecondAdapter(response: FirstListResponse, rv: RecyclerView) {
+    private fun setSecondAdapter(response: ListResponse, rv: RecyclerView) {
         val productsAdapter = SecondProductsAdapter(response, requireContext())
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
     }
 
-    private fun setThirdAdapter(response: FirstListResponse, rv: RecyclerView) {
+    private fun setThirdAdapter(response: ListResponse, rv: RecyclerView) {
         val productsAdapter = ThirdProductsAdapter(response, requireContext())
         rv.layoutManager =
             GridLayoutManager(requireContext(), 2)

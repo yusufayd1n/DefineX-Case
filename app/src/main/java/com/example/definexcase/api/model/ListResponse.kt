@@ -1,6 +1,6 @@
 package com.example.definexcase.api.model
 
-data class FirstListResponse(
+data class ListResponse(
     val isSuccess: Boolean,
     val list: List<items>,
     val message: String,

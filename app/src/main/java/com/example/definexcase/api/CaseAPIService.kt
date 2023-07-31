@@ -1,6 +1,6 @@
 package com.example.definexcase.api
 
-import com.example.definexcase.api.model.FirstListResponse
+import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.api.model.LoginResponse
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -22,15 +22,15 @@ class CaseAPIService {
         return api.postLogin(loginRequest)
     }
 
-    fun getFirstList(token: String): Single<FirstListResponse> {
+    fun getFirstList(token: String): Single<ListResponse> {
         return api.getFirstList(token)
     }
 
-    fun getSecondList(token: String): Single<FirstListResponse> {
+    fun getSecondList(token: String): Single<ListResponse> {
         return api.getSecondList(token)
     }
 
-    fun getThirdList(token: String): Single<FirstListResponse> {
+    fun getThirdList(token: String): Single<ListResponse> {
         return api.getThirdList(token)
     }
 }
