@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.definexcase.BaseFragment
 import com.example.definexcase.MainActivity
 import com.example.definexcase.R
 import com.example.definexcase.api.model.LoginRequest
@@ -25,7 +26,7 @@ import com.example.definexcase.databinding.FragmentLoginBinding
 import com.example.definexcase.viewmodel.LoginViewModel
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
     private lateinit var binding: FragmentLoginBinding
     private lateinit var viewModel: LoginViewModel

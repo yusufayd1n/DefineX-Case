@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.definexcase.BaseFragment
+import com.example.definexcase.R
 import com.example.definexcase.adapter.ProductsAdapter
 import com.example.definexcase.adapter.SecondProductsAdapter
 import com.example.definexcase.adapter.ThirdProductsAdapter
@@ -20,7 +22,7 @@ import com.example.definexcase.databinding.FragmentHomeBinding
 import com.example.definexcase.viewmodel.HomeViewModel
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private lateinit var viewModel: HomeViewModel
     var token: String = ""
     private lateinit var binding: FragmentHomeBinding
