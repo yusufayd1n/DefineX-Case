@@ -19,6 +19,7 @@ import com.example.definexcase.adapter.ThirdProductsAdapter
 import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentHomeBinding
+import com.example.definexcase.util.loadData
 import com.example.definexcase.viewmodel.HomeViewModel
 
 
@@ -146,10 +147,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         rv.adapter = productsAdapter
     }
 
-    private fun loadData(context: Context, key: String): String? {
-        val sharedPreferences =
-            context.getSharedPreferences(key, Context.MODE_PRIVATE)
-        return sharedPreferences.getString(key, "")
-    }
+
 
 }

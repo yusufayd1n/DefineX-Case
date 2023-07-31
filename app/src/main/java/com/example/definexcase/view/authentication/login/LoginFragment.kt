@@ -21,17 +21,23 @@ import com.example.definexcase.R
 import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentLoginBinding
+import com.example.definexcase.util.loadData
 import com.example.definexcase.viewmodel.LoginViewModel
 
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
-
+    var token: String = ""
     private lateinit var binding: FragmentLoginBinding
     private lateinit var viewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentLoginBinding.inflate(layoutInflater)
-
+        token = loadData(requireContext(), TOKEN).toString()
+        if (token.isNotEmpty() || token != "") {
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,6 +54,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 saveData(TOKEN, response.token)
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
             } else {
                 Toast.makeText(requireContext(), getString(R.string.login_error), Toast.LENGTH_LONG)
                     .show()
