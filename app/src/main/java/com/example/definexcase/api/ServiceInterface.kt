@@ -15,4 +15,10 @@ interface ServiceInterface {
 
     @GET("discoverFirstHorizontalList")
     fun getFirstList(@Header("token") token: String): Single<FirstListResponse>
+
+    @GET("discoverSecondHorizontalList")
+    fun getSecondList(@Header("token") token: String): Single<FirstListResponse>
+
+    @GET("discoverThirthTwoColumnList")
+    fun getThirdList(@Header("token") token: String): Single<FirstListResponse>
 }

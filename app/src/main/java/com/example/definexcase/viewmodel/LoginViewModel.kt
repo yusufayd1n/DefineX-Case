@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers
 class LoginViewModel : ViewModel() {
     private val caseAPIService = CaseAPIService()
     private val disposable = CompositeDisposable()
+
     val loginLiveData = MutableLiveData<LoginResponse>()
     val loginError = MutableLiveData<Boolean>()
 

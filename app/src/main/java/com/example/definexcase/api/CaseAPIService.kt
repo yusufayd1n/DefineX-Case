@@ -25,4 +25,12 @@ class CaseAPIService {
     fun getFirstList(token: String): Single<FirstListResponse> {
         return api.getFirstList(token)
     }
+
+    fun getSecondList(token: String): Single<FirstListResponse> {
+        return api.getSecondList(token)
+    }
+
+    fun getThirdList(token: String): Single<FirstListResponse> {
+        return api.getThirdList(token)
+    }
 }

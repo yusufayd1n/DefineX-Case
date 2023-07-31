@@ -9,9 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.definexcase.R
 import com.example.definexcase.adapter.ProductsAdapter
+import com.example.definexcase.adapter.SecondProductsAdapter
+import com.example.definexcase.adapter.ThirdProductsAdapter
 import com.example.definexcase.api.model.FirstListResponse
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentHomeBinding
@@ -33,15 +37,33 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         viewModel.getFirstList(token)
+        viewModel.getSecondList(token)
+        viewModel.getThirdList(token)
         setObservers()
     }
 
     private fun setObservers() {
         viewModel.firstListLiveData.observe(viewLifecycleOwner) { response ->
             if (response.isSuccess) {
-                setAdapter(response)
+                setAdapter(response, binding.rvFirstProducts)
             } else {
+                Log.d("FirstListError", viewModel.firstListError.toString())
+            }
+        }
 
+        viewModel.secondListLiveData.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccess) {
+                setSecondAdapter(response, binding.rvSecondProducts)
+            } else {
+                Log.d("SecondListError", viewModel.secondListError.toString())
+            }
+        }
+
+        viewModel.thirdListLiveData.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccess) {
+                setThirdAdapter(response, binding.rvThirdProducts)
+            } else {
+                Log.d("SecondListError", viewModel.secondListError.toString())
             }
         }
     }
@@ -54,12 +76,28 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun setAdapter(response: FirstListResponse) {
+    private fun setAdapter(response: FirstListResponse, rv: RecyclerView) {
         val productsAdapter = ProductsAdapter(response, requireContext())
-        binding.rvProducts.layoutManager =
+        rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvProducts.adapter = productsAdapter
+        rv.adapter = productsAdapter
     }
+
+    private fun setSecondAdapter(response: FirstListResponse, rv: RecyclerView) {
+        val productsAdapter = SecondProductsAdapter(response, requireContext())
+        rv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        rv.adapter = productsAdapter
+    }
+
+    private fun setThirdAdapter(response: FirstListResponse, rv: RecyclerView) {
+        val productsAdapter = ThirdProductsAdapter(response, requireContext())
+        rv.layoutManager =
+            GridLayoutManager(requireContext(), 2)
+        rv.adapter = productsAdapter
+    }
+    //val layoutManager = GridLayoutManager(requireActivity(), 2)
+    //        binding.rvProducts.layoutManager = layoutManager
 
     private fun loadData(context: Context, key: String): String? {
         val sharedPreferences =
