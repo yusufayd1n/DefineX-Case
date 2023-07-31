@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
-import android.provider.Contacts.SettingsColumns.KEY
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.definexcase.BaseFragment
 import com.example.definexcase.MainActivity
@@ -42,8 +40,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         paintTextView()
         setListeners()
         setObservers()
-        //for discount line
-        //binding.tvCase.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
     }
 
     private fun setObservers() {

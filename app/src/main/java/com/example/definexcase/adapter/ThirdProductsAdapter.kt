@@ -14,7 +14,7 @@ import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.databinding.ThirdItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
-class ThirdProductsAdapter(val productsList: ListResponse, val context: Context) :
+class ThirdProductsAdapter(private val productsList: ListResponse, val context: Context) :
     RecyclerView.Adapter<ThirdProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: ThirdItemProductsBinding) :
@@ -59,31 +59,14 @@ class ThirdProductsAdapter(val productsList: ListResponse, val context: Context)
         }
     }
 
-    fun getRating(rating: String): Float {
+    private fun getRating(rating: String): Float {
         when (rating) {
-            "100" -> {
-                return 5f
-            }
-
-            "80" -> {
-                return 4f
-            }
-
-            "60" -> {
-                return 3f
-            }
-
-            "40" -> {
-                return 2f
-            }
-
-            "20" -> {
-                return 1f
-            }
-
-            "0" -> {
-                return 0f
-            }
+            "100" -> { return 5f }
+            "80" -> { return 4f }
+            "60" -> { return 3f }
+            "40" -> { return 2f }
+            "20" -> { return 1f }
+            "0" -> { return 0f }
         }
         return 0f
     }

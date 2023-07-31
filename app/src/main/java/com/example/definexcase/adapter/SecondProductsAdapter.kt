@@ -11,7 +11,7 @@ import com.example.definexcase.api.model.ListResponse
 import com.example.definexcase.databinding.SecondItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
-class SecondProductsAdapter(val productsList: ListResponse, val context: Context) :
+class SecondProductsAdapter(private val productsList: ListResponse, val context: Context) :
     RecyclerView.Adapter<SecondProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: SecondItemProductsBinding) :
