@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.definexcase.BaseFragment
+import com.example.definexcase.base.BaseFragment
 import com.example.definexcase.R
 import com.example.definexcase.adapter.ProductsAdapter
 import com.example.definexcase.adapter.SecondProductsAdapter

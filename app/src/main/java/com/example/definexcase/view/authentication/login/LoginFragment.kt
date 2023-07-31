@@ -15,7 +15,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
-import com.example.definexcase.BaseFragment
+import com.example.definexcase.base.BaseFragment
 import com.example.definexcase.MainActivity
 import com.example.definexcase.R
 import com.example.definexcase.api.model.LoginRequest

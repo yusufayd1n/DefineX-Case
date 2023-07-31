@@ -1,4 +1,4 @@
-package com.example.definexcase
+package com.example.definexcase.base
 
 import android.os.Bundle
 import android.view.View

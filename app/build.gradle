@@ -83,8 +83,6 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:annotations:$glideVersion"
 
-    // Last Adapter
-    //implementation "com.github.nitrico.lastadapter:lastadapter:2.3.0"
 
 
 }
