@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,10 +36,26 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        makeAPIRequests()
+        setListeners()
+        setObservers()
+    }
+
+    private fun makeAPIRequests() {
         viewModel.getFirstList(token)
         viewModel.getSecondList(token)
         viewModel.getThirdList(token)
-        setObservers()
+    }
+
+    private fun setListeners() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.rvFirstProducts.visibility = View.GONE
+            binding.rvSecondProducts.visibility = View.GONE
+            binding.rvThirdProducts.visibility = View.GONE
+            binding.listLoading.visibility = View.VISIBLE
+            makeAPIRequests()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun setObservers() {
@@ -63,6 +80,39 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 setThirdAdapter(response, binding.rvThirdProducts)
             } else {
                 Log.d("ThirdListError", viewModel.secondListError.toString())
+            }
+        }
+
+        viewModel.firstListLoading.observe(viewLifecycleOwner) { loading ->
+            loading?.let {
+                if (it) {
+                    binding.listLoading.visibility = View.VISIBLE
+                } else {
+                    binding.rvFirstProducts.visibility = View.VISIBLE
+                    binding.listLoading.visibility = View.GONE
+                }
+            }
+        }
+
+        viewModel.secondListLoading.observe(viewLifecycleOwner) { loading ->
+            loading?.let {
+                if (it) {
+                    binding.listLoading.visibility = View.VISIBLE
+                } else {
+                    binding.rvSecondProducts.visibility = View.VISIBLE
+                    binding.listLoading.visibility = View.GONE
+                }
+            }
+        }
+
+        viewModel.secondListLoading.observe(viewLifecycleOwner) { loading ->
+            loading?.let {
+                if (it) {
+                    binding.listLoading.visibility = View.VISIBLE
+                } else {
+                    binding.rvThirdProducts.visibility = View.VISIBLE
+                    binding.listLoading.visibility = View.GONE
+                }
             }
         }
     }
