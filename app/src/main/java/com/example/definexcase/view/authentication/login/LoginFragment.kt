@@ -1,24 +1,34 @@
-package com.example.definexcase.ui.authentication
+package com.example.definexcase.view.authentication.login
 
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
+import android.provider.Contacts.SettingsColumns.KEY
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.definexcase.MainActivity
 import com.example.definexcase.R
+import com.example.definexcase.api.model.LoginRequest
+import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentLoginBinding
+import com.example.definexcase.viewmodel.LoginViewModel
 
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var viewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentLoginBinding.inflate(layoutInflater)
@@ -27,8 +37,25 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         paintTextView()
         setListeners()
+        setObservers()
+        //for discount line
+        //binding.tvCase.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+    }
+
+    private fun setObservers() {
+        viewModel.loginLiveData.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccess) {
+                saveData(TOKEN, response.token)
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.login_error), Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
     }
 
 
@@ -162,7 +189,14 @@ class LoginFragment : Fragment() {
                 )
                 binding.tilLoginPassword.hint = getString(R.string.password)
             }
-
+        }
+        binding.btnLogin.setOnClickListener {
+            viewModel.postLogin(
+                LoginRequest(
+                    binding.etLoginEmail.text.toString(),
+                    binding.etLoginPassword.text.toString()
+                )
+            )
         }
     }
 
@@ -170,4 +204,10 @@ class LoginFragment : Fragment() {
         return Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches()
     }
 
+    private fun saveData(key: String, data: String) {
+        val sharedPreferences = context!!.getSharedPreferences(key, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(key, data)
+        editor.apply()
+    }
 }
