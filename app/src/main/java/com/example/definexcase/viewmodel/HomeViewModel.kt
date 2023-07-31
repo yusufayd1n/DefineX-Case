@@ -1,26 +1,26 @@
 package com.example.definexcase.viewmodel
 
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.definexcase.api.CaseAPIService
-import com.example.definexcase.api.model.ListResponse
+import com.example.definexcase.api.model.listResponse.ListsResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(application: Application) : BaseViewModel(application) {
     private val caseAPIService = CaseAPIService()
     private val disposable = CompositeDisposable()
 
-    val firstListLiveData = MutableLiveData<ListResponse>()
+    val firstListLiveData = MutableLiveData<ListsResponse>()
     val firstListError = MutableLiveData<Boolean>()
     val firstListLoading = MutableLiveData<Boolean>()
-    val secondListLiveData = MutableLiveData<ListResponse>()
+    val secondListLiveData = MutableLiveData<ListsResponse>()
     val secondListError = MutableLiveData<Boolean>()
     val secondListLoading = MutableLiveData<Boolean>()
-    val thirdListLiveData = MutableLiveData<ListResponse>()
+    val thirdListLiveData = MutableLiveData<ListsResponse>()
     val thirdListError = MutableLiveData<Boolean>()
     val thirdListLoading = MutableLiveData<Boolean>()
 
@@ -30,11 +30,9 @@ class HomeViewModel : ViewModel() {
             caseAPIService.getFirstList(token)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<ListResponse>() {
-                    override fun onSuccess(t: ListResponse) {
-                        firstListLiveData.value = t
-                        firstListLoading.value = false
-                        firstListError.value = false
+                .subscribeWith(object : DisposableSingleObserver<ListsResponse>() {
+                    override fun onSuccess(t: ListsResponse) {
+                        showFirstList(t)
                     }
 
                     override fun onError(e: Throwable) {
@@ -48,14 +46,21 @@ class HomeViewModel : ViewModel() {
         )
     }
 
+    private fun showFirstList(listResponse: ListsResponse) {
+        firstListLiveData.value = listResponse
+        firstListLoading.value = false
+        firstListError.value = false
+    }
+
+
     fun getSecondList(token: String) {
         secondListLoading.value = true
         disposable.add(
             caseAPIService.getSecondList(token)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<ListResponse>() {
-                    override fun onSuccess(t: ListResponse) {
+                .subscribeWith(object : DisposableSingleObserver<ListsResponse>() {
+                    override fun onSuccess(t: ListsResponse) {
                         secondListLiveData.value = t
                         secondListLoading.value = false
                         secondListError.value = false
@@ -78,8 +83,8 @@ class HomeViewModel : ViewModel() {
             caseAPIService.getThirdList(token)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<ListResponse>() {
-                    override fun onSuccess(t: ListResponse) {
+                .subscribeWith(object : DisposableSingleObserver<ListsResponse>() {
+                    override fun onSuccess(t: ListsResponse) {
                         thirdListLiveData.value = t
                         thirdListLoading.value = false
                         thirdListError.value = false

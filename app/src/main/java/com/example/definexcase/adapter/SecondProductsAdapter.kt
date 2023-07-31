@@ -5,13 +5,11 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.definexcase.R
-import com.example.definexcase.api.model.ListResponse
+import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.SecondItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
-class SecondProductsAdapter(private val productsList: ListResponse, val context: Context) :
+class SecondProductsAdapter(private val productsList: ListsResponse, val context: Context) :
     RecyclerView.Adapter<SecondProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: SecondItemProductsBinding) :

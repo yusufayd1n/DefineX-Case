@@ -1,12 +1,10 @@
 package com.example.definexcase.view.home
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +14,7 @@ import com.example.definexcase.R
 import com.example.definexcase.adapter.ProductsAdapter
 import com.example.definexcase.adapter.SecondProductsAdapter
 import com.example.definexcase.adapter.ThirdProductsAdapter
-import com.example.definexcase.api.model.ListResponse
+import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentHomeBinding
 import com.example.definexcase.util.loadData
@@ -126,21 +124,21 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         return binding.root
     }
 
-    private fun setAdapter(response: ListResponse, rv: RecyclerView) {
+    private fun setAdapter(response: ListsResponse, rv: RecyclerView) {
         val productsAdapter = ProductsAdapter(response, requireContext())
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
     }
 
-    private fun setSecondAdapter(response: ListResponse, rv: RecyclerView) {
+    private fun setSecondAdapter(response: ListsResponse, rv: RecyclerView) {
         val productsAdapter = SecondProductsAdapter(response, requireContext())
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
     }
 
-    private fun setThirdAdapter(response: ListResponse, rv: RecyclerView) {
+    private fun setThirdAdapter(response: ListsResponse, rv: RecyclerView) {
         val productsAdapter = ThirdProductsAdapter(response, requireContext())
         rv.layoutManager =
             GridLayoutManager(requireContext(), 2)

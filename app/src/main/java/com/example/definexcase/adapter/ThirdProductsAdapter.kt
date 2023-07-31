@@ -8,13 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.definexcase.R
-import com.example.definexcase.api.model.ListResponse
+import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.ThirdItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
-class ThirdProductsAdapter(private val productsList: ListResponse, val context: Context) :
+class ThirdProductsAdapter(private val productsList: ListsResponse, val context: Context) :
     RecyclerView.Adapter<ThirdProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: ThirdItemProductsBinding) :
