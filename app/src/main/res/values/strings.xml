@@ -17,4 +17,5 @@
     <string name="login_error">Kullanıcı adı veya şifre yanlış!</string>
     <string name="NA">NA</string>
     <string name="home">Ana Sayfa</string>
+    <string name="internet_connection_error">Görünüşe göre internete bağlantınız yok, güncel verileri görüntüleyemezsiniz.</string>
 </resources>

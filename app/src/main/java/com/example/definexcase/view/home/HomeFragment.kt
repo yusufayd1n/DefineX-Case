@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +16,6 @@ import com.example.definexcase.adapter.ProductsAdapter
 import com.example.definexcase.adapter.SecondProductsAdapter
 import com.example.definexcase.adapter.ThirdProductsAdapter
 import com.example.definexcase.api.model.listResponse.ListItems
-import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentHomeBinding
 import com.example.definexcase.util.checkForInternet
@@ -40,6 +40,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         makeAPIRequests()
         setListeners()
         setObservers()
+        checkForInternetInFragment()
+    }
+
+    private fun checkForInternetInFragment() {
+        if (!checkForInternet(requireContext())) {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.internet_connection_error),
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     private fun makeAPIRequests() {
@@ -50,9 +61,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun setListeners() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            //binding.rvFirstProducts.visibility = View.GONE
-            //binding.rvSecondProducts.visibility = View.GONE
-            //binding.rvThirdProducts.visibility = View.GONE
+            binding.rvFirstProducts.visibility = View.GONE
+            binding.rvSecondProducts.visibility = View.GONE
+            binding.rvThirdProducts.visibility = View.GONE
             binding.listLoading.visibility = View.VISIBLE
             makeAPIRequests()
             binding.swipeRefreshLayout.isRefreshing = false
@@ -134,6 +145,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
+        binding.rvFirstProducts.visibility = View.VISIBLE
     }
 
     private fun setSecondAdapter(response: List<ListItems>, rv: RecyclerView) {
@@ -141,6 +153,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
+        binding.rvSecondProducts.visibility = View.VISIBLE
     }
 
     private fun setThirdAdapter(response: List<ListItems>, rv: RecyclerView) {
@@ -148,6 +161,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         rv.layoutManager =
             GridLayoutManager(requireContext(), 2)
         rv.adapter = productsAdapter
+        binding.rvThirdProducts.visibility = View.VISIBLE
     }
 
 
