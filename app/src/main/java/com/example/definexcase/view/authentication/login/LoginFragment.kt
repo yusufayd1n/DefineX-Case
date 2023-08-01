@@ -22,6 +22,7 @@ import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentLoginBinding
 import com.example.definexcase.util.loadData
+import com.example.definexcase.util.saveData
 import com.example.definexcase.viewmodel.LoginViewModel
 
 
@@ -51,7 +52,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     private fun setObservers() {
         viewModel.loginLiveData.observe(viewLifecycleOwner) { response ->
             if (response.isSuccess) {
-                saveData(TOKEN, response.token)
+                saveData(TOKEN, response.token, requireContext())
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
@@ -206,10 +207,5 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         return Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches()
     }
 
-    private fun saveData(key: String, data: String) {
-        val sharedPreferences = requireContext().getSharedPreferences(key, MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString(key, data)
-        editor.apply()
-    }
+
 }
