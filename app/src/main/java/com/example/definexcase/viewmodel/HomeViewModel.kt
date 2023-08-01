@@ -2,7 +2,6 @@ package com.example.definexcase.viewmodel
 
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.definexcase.api.CaseAPIService
 import com.example.definexcase.api.model.listResponse.ListItems
@@ -30,6 +29,62 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     val thirdListError = MutableLiveData<Boolean>()
     val thirdListLoading = MutableLiveData<Boolean>()
 
+
+    private fun showList(
+        listItems: List<ListItems>,
+        liveData: MutableLiveData<List<ListItems>>,
+        listError: MutableLiveData<Boolean>,
+        listLoading: MutableLiveData<Boolean>
+    ) {
+        liveData.value = listItems
+        listError.value = false
+        listLoading.value = false
+    }
+
+    private fun showListWhenError(
+        listItems: List<ListItems>,
+        liveData: MutableLiveData<List<ListItems>>,
+        listError: MutableLiveData<Boolean>,
+        listLoading: MutableLiveData<Boolean>
+    ) {
+        liveData.value = listItems
+        listError.value = true
+        listLoading.value = false
+    }
+
+    private fun storeListInSQLite(
+        products: List<ListItems>,
+        showFunction: Unit,
+        listId: Int
+    ) {
+        launch {
+            val dao = ProductsDataBase(getApplication()).productsDao()
+            dao.deleteAll()
+            products.forEach {
+                it.listId = listId
+            }
+            val listLong = dao.insertAll(*products.toTypedArray())
+            var i = 0
+            while (i < products.size) {
+                products[i].uuid = listLong[i].toInt()
+                i++
+            }
+        }
+    }
+
+    private fun getListFromSQLite(
+        liveData: MutableLiveData<List<ListItems>>,
+        listError: MutableLiveData<Boolean>,
+        listLoading: MutableLiveData<Boolean>,
+        listId: Int
+    ) {
+        launch {
+            val products =
+                ProductsDataBase(getApplication()).productsDao().getAllProductsWithListId(listId)
+            showListWhenError(products, liveData, listError, listLoading)
+        }
+    }
+
     fun getFirstList(token: String) {
         firstListLoading.value = true
         disposable.add(
@@ -38,50 +93,20 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<ListsResponse>() {
                     override fun onSuccess(t: ListsResponse) {
-                        storeFirstListInSQLite(t.list)
+                        storeListInSQLite(
+                            t.list,
+                            showList(t.list, firstListLiveData, firstListError, firstListLoading),
+                            1
+                        )
                     }
 
                     override fun onError(e: Throwable) {
-                        firstListLoading.value = false
-                        firstListError.value = true
-                        getFirstListFromSQLite()
+                        getListFromSQLite(firstListLiveData, firstListError, firstListLoading, 1)
                         e.printStackTrace()
                     }
                 })
         )
     }
-
-    private fun showFirstList(listItems: List<ListItems>) {
-        firstListLiveData.value = listItems
-        firstListLoading.value = false
-        firstListError.value = false
-    }
-
-    private fun storeFirstListInSQLite(products: List<ListItems>) {
-        launch {
-            val dao = ProductsDataBase(getApplication()).productsDao()
-            dao.deleteAll()
-            products.forEach {
-                it.listId = 1
-            }
-            val listLong = dao.insertAll(*products.toTypedArray())
-            var i = 0
-            while (i < products.size) {
-                products[i].uuid = listLong[i].toInt()
-                i++
-            }
-            showFirstList(products)
-        }
-    }
-
-    private fun getFirstListFromSQLite() {
-        launch {
-            val products =
-                ProductsDataBase(getApplication()).productsDao().getAllProductsWithListId(1)
-            showFirstList(products)
-        }
-    }
-
 
     fun getSecondList(token: String) {
         secondListLoading.value = true
@@ -91,50 +116,26 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<ListsResponse>() {
                     override fun onSuccess(t: ListsResponse) {
-                        storeSecondListInSQLite(t.list)
+                        storeListInSQLite(
+                            t.list,
+                            showList(
+                                t.list,
+                                secondListLiveData,
+                                secondListError,
+                                secondListLoading
+                            ),
+                            2
+                        )
                     }
 
                     override fun onError(e: Throwable) {
-                        secondListLoading.value = false
-                        secondListError.value = true
-                        getSecondListFromSQLite()
+                        getListFromSQLite(secondListLiveData, secondListError, secondListLoading, 2)
                         e.printStackTrace()
                     }
 
                 })
 
         )
-    }
-
-    private fun showSecondList(listItems: List<ListItems>) {
-        secondListLiveData.value = listItems
-        firstListLoading.value = false
-        firstListError.value = false
-    }
-
-    private fun storeSecondListInSQLite(products: List<ListItems>) {
-        launch {
-            val dao = ProductsDataBase(getApplication()).productsDao()
-            dao.deleteAll()
-            products.forEach {
-                it.listId = 2
-            }
-            val listLong = dao.insertAll(*products.toTypedArray())
-            var i = 0
-            while (i < products.size) {
-                products[i].uuid = listLong[i].toInt()
-                i++
-            }
-            showSecondList(products)
-        }
-    }
-
-    private fun getSecondListFromSQLite() {
-        launch {
-            val products =
-                ProductsDataBase(getApplication()).productsDao().getAllProductsWithListId(2)
-            showSecondList(products)
-        }
     }
 
     fun getThirdList(token: String) {
@@ -145,13 +146,15 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<ListsResponse>() {
                     override fun onSuccess(t: ListsResponse) {
-                        storeThirdListInSQLite(t.list)
+                        storeListInSQLite(
+                            t.list,
+                            showList(t.list, thirdListLiveData, thirdListError, thirdListLoading),
+                            3
+                        )
                     }
 
                     override fun onError(e: Throwable) {
-                        thirdListLoading.value = false
-                        thirdListError.value = true
-                        getThirdListFromSQLite()
+                        getListFromSQLite(thirdListLiveData, thirdListError, thirdListLoading, 3)
                         e.printStackTrace()
                     }
 
@@ -160,34 +163,4 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
-    private fun showThirdList(listItems: List<ListItems>) {
-        thirdListLiveData.value = listItems
-        firstListLoading.value = false
-        firstListError.value = false
-    }
-
-    private fun storeThirdListInSQLite(products: List<ListItems>) {
-        launch {
-            val dao = ProductsDataBase(getApplication()).productsDao()
-            dao.deleteAll()
-            products.forEach {
-                it.listId = 3
-            }
-            val listLong = dao.insertAll(*products.toTypedArray())
-            var i = 0
-            while (i < products.size) {
-                products[i].uuid = listLong[i].toInt()
-                i++
-            }
-            showThirdList(products)
-        }
-    }
-
-    private fun getThirdListFromSQLite() {
-        launch {
-            val products =
-                ProductsDataBase(getApplication()).productsDao().getAllProductsWithListId(3)
-            showThirdList(products)
-        }
-    }
 }
