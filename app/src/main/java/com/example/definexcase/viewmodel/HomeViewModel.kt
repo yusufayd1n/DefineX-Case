@@ -30,61 +30,6 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     val thirdListLoading = MutableLiveData<Boolean>()
 
 
-    private fun showList(
-        listItems: List<ListItems>,
-        liveData: MutableLiveData<List<ListItems>>,
-        listError: MutableLiveData<Boolean>,
-        listLoading: MutableLiveData<Boolean>
-    ) {
-        liveData.value = listItems
-        listError.value = false
-        listLoading.value = false
-    }
-
-    private fun showListWhenError(
-        listItems: List<ListItems>,
-        liveData: MutableLiveData<List<ListItems>>,
-        listError: MutableLiveData<Boolean>,
-        listLoading: MutableLiveData<Boolean>
-    ) {
-        liveData.value = listItems
-        listError.value = true
-        listLoading.value = false
-    }
-
-    private fun storeListInSQLite(
-        products: List<ListItems>,
-        showFunction: Unit,
-        listId: Int
-    ) {
-        launch {
-            val dao = ProductsDataBase(getApplication()).productsDao()
-            dao.deleteAll()
-            products.forEach {
-                it.listId = listId
-            }
-            val listLong = dao.insertAll(*products.toTypedArray())
-            var i = 0
-            while (i < products.size) {
-                products[i].uuid = listLong[i].toInt()
-                i++
-            }
-        }
-    }
-
-    private fun getListFromSQLite(
-        liveData: MutableLiveData<List<ListItems>>,
-        listError: MutableLiveData<Boolean>,
-        listLoading: MutableLiveData<Boolean>,
-        listId: Int
-    ) {
-        launch {
-            val products =
-                ProductsDataBase(getApplication()).productsDao().getAllProductsWithListId(listId)
-            showListWhenError(products, liveData, listError, listLoading)
-        }
-    }
-
     fun getFirstList(token: String) {
         firstListLoading.value = true
         disposable.add(
@@ -161,6 +106,66 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 })
 
         )
+    }
+
+    private fun showList(
+        listItems: List<ListItems>,
+        liveData: MutableLiveData<List<ListItems>>,
+        listError: MutableLiveData<Boolean>,
+        listLoading: MutableLiveData<Boolean>
+    ) {
+        liveData.value = listItems
+        listError.value = false
+        listLoading.value = false
+    }
+
+    private fun showListWhenError(
+        listItems: List<ListItems>,
+        liveData: MutableLiveData<List<ListItems>>,
+        listError: MutableLiveData<Boolean>,
+        listLoading: MutableLiveData<Boolean>
+    ) {
+        liveData.value = listItems
+        listError.value = true
+        listLoading.value = false
+    }
+
+    private fun storeListInSQLite(
+        products: List<ListItems>,
+        showFunction: Unit,
+        listId: Int
+    ) {
+        launch {
+            val dao = ProductsDataBase(getApplication()).productsDao()
+            dao.deleteAll()
+            products.forEach {
+                it.listId = listId
+            }
+            val listLong = dao.insertAll(*products.toTypedArray())
+            var i = 0
+            while (i < products.size) {
+                products[i].uuid = listLong[i].toInt()
+                i++
+            }
+        }
+    }
+
+    private fun getListFromSQLite(
+        liveData: MutableLiveData<List<ListItems>>,
+        listError: MutableLiveData<Boolean>,
+        listLoading: MutableLiveData<Boolean>,
+        listId: Int
+    ) {
+        launch {
+            val products =
+                ProductsDataBase(getApplication()).productsDao().getAllProductsWithListId(listId)
+            showListWhenError(products, liveData, listError, listLoading)
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.dispose()
     }
 
 }
