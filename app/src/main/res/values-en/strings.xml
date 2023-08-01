@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DefineXCase</string>
+    <string name="tab_home">Discover</string>
+    <string name="tab_book">Book</string>
+    <string name="tab_basket">Basket</string>
+    <string name="tab_fav">Favorites</string>
+    <string name="tab_profile">Profil</string>
+    <string name="case_study">Definex Case Study</string>
+    <string name="email">E mail address</string>
+    <string name="password">Your password</string>
+    <string name="email_error">Please Check Your E-mail Address</string>
+    <string name="password_error">Your password is too short</string>
+    <string name="login">Login</string>
+    <string name="forgot_my_password">I forgot my password</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="login_error">Username or password is incorrect!</string>
+    <string name="NA">NA</string>
+    <string name="home">Home</string>
+    <string name="internet_connection_error">   According to the latest, you do not have an internet connection, you cannot view the current data.</string>
+</resources>

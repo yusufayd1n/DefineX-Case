@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
-import android.provider.Contacts.SettingsColumns.KEY
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -15,24 +14,30 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.definexcase.base.BaseFragment
 import com.example.definexcase.MainActivity
 import com.example.definexcase.R
 import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentLoginBinding
+import com.example.definexcase.util.loadData
 import com.example.definexcase.viewmodel.LoginViewModel
 
 
-class LoginFragment : Fragment() {
-
+class LoginFragment : BaseFragment(R.layout.fragment_login) {
+    var token: String = ""
     private lateinit var binding: FragmentLoginBinding
     private lateinit var viewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentLoginBinding.inflate(layoutInflater)
-
+        token = loadData(requireContext(), TOKEN).toString()
+        if (token.isNotEmpty() || token != "") {
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,8 +46,6 @@ class LoginFragment : Fragment() {
         paintTextView()
         setListeners()
         setObservers()
-        //for discount line
-        //binding.tvCase.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
     }
 
     private fun setObservers() {
@@ -51,6 +54,7 @@ class LoginFragment : Fragment() {
                 saveData(TOKEN, response.token)
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
             } else {
                 Toast.makeText(requireContext(), getString(R.string.login_error), Toast.LENGTH_LONG)
                     .show()
@@ -64,9 +68,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val view = binding.root
-        return view
-
+        return binding.root
     }
 
     private fun paintTextView() {
@@ -205,7 +207,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun saveData(key: String, data: String) {
-        val sharedPreferences = context!!.getSharedPreferences(key, MODE_PRIVATE)
+        val sharedPreferences = requireContext().getSharedPreferences(key, MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString(key, data)
         editor.apply()
