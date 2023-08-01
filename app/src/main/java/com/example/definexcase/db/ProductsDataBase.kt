@@ -10,7 +10,7 @@ import com.example.definexcase.api.model.listResponse.ListItems
 
 @Database(entities = [ListItems::class], version = 1)
 @TypeConverters(Converters::class)
-abstract class ProductsDataBase : RoomDatabase() {
+abstract class ProductsDataBase() : RoomDatabase() {
     abstract fun productsDao(): ProductsDao
 
     companion object {

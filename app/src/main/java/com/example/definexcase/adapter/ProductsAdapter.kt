@@ -33,13 +33,13 @@ class ProductsAdapter(private val productsList: List<ListItems>, val context: Co
         holder.binding.ivProduct.downloadFromUrl(productsList[position].photoUrl)
         if (productsList[position].discount == "") {
             val price =
-                productsList[position].oldPrice.value.toString() + " " + productsList[position].oldPrice.currency + "US"
+                productsList[position].oldPrice?.value.toString() + " " + productsList[position].oldPrice?.currency + "US"
             holder.binding.tvOldPrice.text = price
         } else {
             val price =
                 productsList[position].price.value.toString() + " " + productsList[position].price.currency + "US"
             val oldPrice =
-                productsList[position].oldPrice.value.toString() + " " + productsList[position].oldPrice.currency + "US"
+                productsList[position].oldPrice?.value.toString() + " " + productsList[position].oldPrice?.currency + "US"
             holder.binding.tvOldPrice.text = oldPrice
             holder.binding.tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             holder.binding.tvDiscount.text = productsList[position].discount

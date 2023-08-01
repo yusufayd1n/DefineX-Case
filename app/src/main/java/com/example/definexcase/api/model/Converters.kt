@@ -7,10 +7,10 @@ import com.example.definexcase.api.model.listResponse.Price
 class Converters {
 
     @TypeConverter
-    fun fromPriceToValue(oldPrice: OldPrice): Double = oldPrice.value
+    fun fromPriceToValue(oldPrice: OldPrice?): Double? = oldPrice?.value
 
     @TypeConverter
-    fun toOldPriceToValue(value: Double): OldPrice = OldPrice("$", value)
+    fun toOldPriceToValue(value: Double?): OldPrice? = value?.let { OldPrice("$", it) }
 
     @TypeConverter
     fun fromPriceToValue(price: Price): Double = price.value

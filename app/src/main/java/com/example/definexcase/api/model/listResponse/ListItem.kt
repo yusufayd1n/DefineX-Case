@@ -18,7 +18,7 @@ data class ListItems(
     val photoUrl: String,
     @ColumnInfo(name = "old_price")
     @field:TypeConverters(Converters::class)
-    val oldPrice: OldPrice,
+    val oldPrice: OldPrice?,
     @ColumnInfo(name = "price_name")
     @field:TypeConverters(Converters::class)
     val price: Price,
@@ -27,4 +27,5 @@ data class ListItems(
 ) {
     @PrimaryKey(autoGenerate = true)
     var uuid: Int = 0
+    var listId: Int = 0
 }

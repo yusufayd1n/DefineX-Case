@@ -18,6 +18,7 @@ import com.example.definexcase.api.model.listResponse.ListItems
 import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentHomeBinding
+import com.example.definexcase.util.checkForInternet
 import com.example.definexcase.util.loadData
 import com.example.definexcase.viewmodel.HomeViewModel
 
@@ -50,8 +51,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun setListeners() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             //binding.rvFirstProducts.visibility = View.GONE
-            binding.rvSecondProducts.visibility = View.GONE
-            binding.rvThirdProducts.visibility = View.GONE
+            //binding.rvSecondProducts.visibility = View.GONE
+            //binding.rvThirdProducts.visibility = View.GONE
             binding.listLoading.visibility = View.VISIBLE
             makeAPIRequests()
             binding.swipeRefreshLayout.isRefreshing = false
@@ -63,23 +64,25 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             if (viewModel.firstListError.value == false) {
                 setAdapter(response, binding.rvFirstProducts)
             } else {
-                setAdapter(response,binding.rvFirstProducts)
+                setAdapter(response, binding.rvFirstProducts)
                 Log.d("FirstListError", viewModel.firstListError.toString())
             }
         }
 
         viewModel.secondListLiveData.observe(viewLifecycleOwner) { response ->
-            if (response.isSuccess) {
+            if (viewModel.secondListError.value == false) {
                 setSecondAdapter(response, binding.rvSecondProducts)
             } else {
+                setSecondAdapter(response, binding.rvSecondProducts)
                 Log.d("SecondListError", viewModel.secondListError.toString())
             }
         }
 
         viewModel.thirdListLiveData.observe(viewLifecycleOwner) { response ->
-            if (response.isSuccess) {
+            if (viewModel.thirdListError.value == false) {
                 setThirdAdapter(response, binding.rvThirdProducts)
             } else {
+                setThirdAdapter(response, binding.rvThirdProducts)
                 Log.d("ThirdListError", viewModel.secondListError.toString())
             }
         }
@@ -133,14 +136,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         rv.adapter = productsAdapter
     }
 
-    private fun setSecondAdapter(response: ListsResponse, rv: RecyclerView) {
+    private fun setSecondAdapter(response: List<ListItems>, rv: RecyclerView) {
         val productsAdapter = SecondProductsAdapter(response, requireContext())
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
     }
 
-    private fun setThirdAdapter(response: ListsResponse, rv: RecyclerView) {
+    private fun setThirdAdapter(response: List<ListItems>, rv: RecyclerView) {
         val productsAdapter = ThirdProductsAdapter(response, requireContext())
         rv.layoutManager =
             GridLayoutManager(requireContext(), 2)

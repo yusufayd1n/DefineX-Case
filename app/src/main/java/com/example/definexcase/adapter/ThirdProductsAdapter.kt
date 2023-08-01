@@ -9,11 +9,12 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.definexcase.R
+import com.example.definexcase.api.model.listResponse.ListItems
 import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.ThirdItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
-class ThirdProductsAdapter(private val productsList: ListsResponse, val context: Context) :
+class ThirdProductsAdapter(private val productsList: List<ListItems>, val context: Context) :
     RecyclerView.Adapter<ThirdProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: ThirdItemProductsBinding) :
@@ -28,18 +29,18 @@ class ThirdProductsAdapter(private val productsList: ListsResponse, val context:
     }
 
     override fun getItemCount(): Int {
-        return productsList.list.size
+        return productsList.size
     }
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
-        holder.binding.tvTitle.text = productsList.list[position].description
+        holder.binding.tvTitle.text = productsList[position].description
         holder.binding.ratingBar.rating =
-            getRating(productsList.list[position].ratePercentage.toString())
+            getRating(productsList[position].ratePercentage.toString())
         if (holder.binding.ratingBar.rating == 0f) holder.binding.ratingBar.visibility = View.INVISIBLE
-        holder.binding.ivProduct.downloadFromUrl(productsList.list[position].photoUrl)
-        if (productsList.list[position].oldPrice == null) {
+        holder.binding.ivProduct.downloadFromUrl(productsList[position].photoUrl)
+        if (productsList[position].oldPrice == null) {
             val price =
-                productsList.list[position].price.value.toString() + " " + productsList.list[position].price.currency + "US"
+                productsList[position].price.value.toString() + " " + productsList[position].price.currency + "US"
             holder.binding.tvOldPrice.typeface =
                 ResourcesCompat.getFont(context, R.font.roboto_medium)
             holder.binding.tvOldPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
@@ -48,12 +49,12 @@ class ThirdProductsAdapter(private val productsList: ListsResponse, val context:
         } else {
             holder.binding.tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             val price =
-                productsList.list[position].price.value.toString() + " " + productsList.list[position].price.currency + "US"
+                productsList[position].price.value.toString() + " " + productsList[position].price.currency + "US"
             val oldPrice =
-                productsList.list[position].oldPrice?.value.toString() + " " + productsList.list[position].oldPrice?.currency + "US"
+                productsList[position].oldPrice?.value.toString() + " " + productsList[position].oldPrice?.currency + "US"
             holder.binding.tvOldPrice.text = oldPrice
             holder.binding.tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            holder.binding.tvDiscount.text = productsList.list[position].discount
+            holder.binding.tvDiscount.text = productsList[position].discount
             holder.binding.tvNewPrice.text = price
         }
     }
