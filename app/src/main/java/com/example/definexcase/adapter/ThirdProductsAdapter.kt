@@ -36,7 +36,7 @@ class ThirdProductsAdapter(private val productsList: ListsResponse, val context:
         holder.binding.ratingBar.rating =
             getRating(productsList.list[position].ratePercentage.toString())
         if (holder.binding.ratingBar.rating == 0f) holder.binding.ratingBar.visibility = View.INVISIBLE
-        holder.binding.ivProduct.downloadFromUrl(productsList.list[position].imageUrl)
+        holder.binding.ivProduct.downloadFromUrl(productsList.list[position].photoUrl)
         if (productsList.list[position].oldPrice == null) {
             val price =
                 productsList.list[position].price.value.toString() + " " + productsList.list[position].price.currency + "US"

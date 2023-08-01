@@ -14,6 +14,7 @@ import com.example.definexcase.R
 import com.example.definexcase.adapter.ProductsAdapter
 import com.example.definexcase.adapter.SecondProductsAdapter
 import com.example.definexcase.adapter.ThirdProductsAdapter
+import com.example.definexcase.api.model.listResponse.ListItems
 import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.consts.Constants.Companion.TOKEN
 import com.example.definexcase.databinding.FragmentHomeBinding
@@ -48,7 +49,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun setListeners() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.rvFirstProducts.visibility = View.GONE
+            //binding.rvFirstProducts.visibility = View.GONE
             binding.rvSecondProducts.visibility = View.GONE
             binding.rvThirdProducts.visibility = View.GONE
             binding.listLoading.visibility = View.VISIBLE
@@ -59,9 +60,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun setObservers() {
         viewModel.firstListLiveData.observe(viewLifecycleOwner) { response ->
-            if (response.isSuccess) {
+            if (viewModel.firstListError.value == false) {
                 setAdapter(response, binding.rvFirstProducts)
             } else {
+                setAdapter(response,binding.rvFirstProducts)
                 Log.d("FirstListError", viewModel.firstListError.toString())
             }
         }
@@ -104,7 +106,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         }
 
-        viewModel.secondListLoading.observe(viewLifecycleOwner) { loading ->
+        viewModel.thirdListLoading.observe(viewLifecycleOwner) { loading ->
             loading?.let {
                 if (it) {
                     binding.listLoading.visibility = View.VISIBLE
@@ -124,7 +126,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         return binding.root
     }
 
-    private fun setAdapter(response: ListsResponse, rv: RecyclerView) {
+    private fun setAdapter(response: List<ListItems>, rv: RecyclerView) {
         val productsAdapter = ProductsAdapter(response, requireContext())
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -144,7 +146,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             GridLayoutManager(requireContext(), 2)
         rv.adapter = productsAdapter
     }
-
 
 
 }

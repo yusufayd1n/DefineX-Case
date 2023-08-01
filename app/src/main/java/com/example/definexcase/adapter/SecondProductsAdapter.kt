@@ -29,7 +29,7 @@ class SecondProductsAdapter(private val productsList: ListsResponse, val context
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         holder.binding.tvTitle.text = productsList.list[position].description
-        holder.binding.ivProduct.downloadFromUrl(productsList.list[position].imageUrl)
+        holder.binding.ivProduct.downloadFromUrl(productsList.list[position].photoUrl)
         val price =
             productsList.list[position].price.value.toString() + " " + productsList.list[position].price.currency + "US"
         val oldPrice =
