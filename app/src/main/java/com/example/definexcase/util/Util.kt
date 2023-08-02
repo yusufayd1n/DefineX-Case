@@ -15,14 +15,23 @@ fun ImageView.downloadFromUrl(url: String?) {
         .error(R.drawable.error)
         .into(this)
 }
+
 fun loadData(context: Context, key: String): String? {
     val sharedPreferences =
         context.getSharedPreferences(key, Context.MODE_PRIVATE)
     return sharedPreferences.getString(key, "")
 }
 
- fun checkForInternet(context: Context): Boolean {
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+fun saveData(key: String, data: String, context: Context) {
+    val sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    editor.putString(key, data)
+    editor.apply()
+}
+
+fun checkForInternet(context: Context): Boolean {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         val network = connectivityManager.activeNetwork ?: return false
 

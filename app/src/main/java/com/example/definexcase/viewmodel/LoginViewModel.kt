@@ -12,8 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class LoginViewModel : ViewModel() {
-    private val caseAPIService = CaseAPIService()
+class LoginViewModel(val caseAPIService: CaseAPIService) : ViewModel() {
     private val disposable = CompositeDisposable()
 
     val loginLiveData = MutableLiveData<LoginResponse>()
