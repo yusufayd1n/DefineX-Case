@@ -8,15 +8,8 @@ import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CaseAPIService {
-    private val BASE_URL = "https://teamdefinex-mobile-auth-casestudy.vercel.app/"
+class CaseAPIService(private val api: ServiceInterface) {
 
-    private val api = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(ServiceInterface::class.java)
 
     fun login(loginRequest: LoginRequest): Single<LoginResponse> {
         return api.postLogin(loginRequest)

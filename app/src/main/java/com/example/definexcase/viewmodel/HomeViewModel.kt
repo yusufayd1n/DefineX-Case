@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.definexcase.api.CaseAPIService
 import com.example.definexcase.api.model.listResponse.ListItems
 import com.example.definexcase.api.model.listResponse.ListsResponse
+import com.example.definexcase.db.ProductsDao
 import com.example.definexcase.db.ProductsDataBase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -13,7 +14,11 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
-class HomeViewModel(application: Application, private val caseAPIService: CaseAPIService) :
+class HomeViewModel(
+    application: Application,
+    private val caseAPIService: CaseAPIService,
+    val dao: ProductsDao
+) :
     BaseViewModel(application) {
     private val disposable = CompositeDisposable()
 
@@ -28,7 +33,6 @@ class HomeViewModel(application: Application, private val caseAPIService: CaseAP
     val thirdListLiveData = MutableLiveData<List<ListItems>>()
     val thirdListError = MutableLiveData<Boolean>()
     val thirdListLoading = MutableLiveData<Boolean>()
-
 
     fun getFirstList(token: String) {
         firstListLoading.value = true
@@ -143,10 +147,7 @@ class HomeViewModel(application: Application, private val caseAPIService: CaseAP
         listId: Int
     ) {
         launch {
-            val dao = ProductsDataBase(getApplication()).productsDao()
-            if (listId == 1) {
-                dao.deleteAll()
-            }
+            dao.deleteListWithId(listId)
             products.forEach {
                 it.listId = listId
             }
@@ -167,7 +168,7 @@ class HomeViewModel(application: Application, private val caseAPIService: CaseAP
     ) {
         launch {
             val products =
-                ProductsDataBase(getApplication()).productsDao().getAllProductsWithListId(listId)
+                dao.getAllProductsWithListId(listId)
             showListWhenError(products, liveData, listError, listLoading)
         }
     }
