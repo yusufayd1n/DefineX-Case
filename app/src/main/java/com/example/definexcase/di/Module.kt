@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.definexcase.api.CaseAPIService
 import com.example.definexcase.api.ServiceInterface
+import com.example.definexcase.consts.Constants.Companion.BASE_URL
 import com.example.definexcase.db.ProductsDataBase
 import com.example.definexcase.viewmodel.HomeViewModel
 import com.example.definexcase.viewmodel.LoginViewModel
@@ -20,8 +21,6 @@ val appModule = module {
 val networkModule = module {
     single { CaseAPIService(get()) }
     single {
-        val BASE_URL = "https://teamdefinex-mobile-auth-casestudy.vercel.app/"
-
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
