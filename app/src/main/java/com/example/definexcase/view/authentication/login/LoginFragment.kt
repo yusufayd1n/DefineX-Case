@@ -1,6 +1,5 @@
 package com.example.definexcase.view.authentication.login
 
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -14,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.ViewModelProvider
 import com.example.definexcase.base.BaseFragment
 import com.example.definexcase.MainActivity
 import com.example.definexcase.R

@@ -15,7 +15,7 @@
             android:layout_height="100dp"
             android:layout_margin="4dp"
             android:contentDescription="@string/app_name"
-            tools:src="@drawable/placeholder" />
+            />
 
         <TextView
             android:id="@+id/tv_title"
