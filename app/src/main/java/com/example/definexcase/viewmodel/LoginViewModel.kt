@@ -1,7 +1,5 @@
 package com.example.definexcase.viewmodel
 
-
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.definexcase.api.CaseAPIService
@@ -34,7 +32,11 @@ class LoginViewModel(val caseAPIService: CaseAPIService) : ViewModel() {
                     }
 
                 })
-
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.dispose()
     }
 }
