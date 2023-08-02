@@ -24,12 +24,13 @@ import com.example.definexcase.databinding.FragmentLoginBinding
 import com.example.definexcase.util.loadData
 import com.example.definexcase.util.saveData
 import com.example.definexcase.viewmodel.LoginViewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
     var token: String = ""
     private lateinit var binding: FragmentLoginBinding
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by stateViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentLoginBinding.inflate(layoutInflater)
@@ -43,7 +44,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         paintTextView()
         setListeners()
         setObservers()

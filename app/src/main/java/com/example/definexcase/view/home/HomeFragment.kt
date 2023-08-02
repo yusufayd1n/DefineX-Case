@@ -21,10 +21,12 @@ import com.example.definexcase.databinding.FragmentHomeBinding
 import com.example.definexcase.util.checkForInternet
 import com.example.definexcase.util.loadData
 import com.example.definexcase.viewmodel.HomeViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by stateViewModel()
     var token: String = ""
     private lateinit var binding: FragmentHomeBinding
 
@@ -36,7 +38,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         makeAPIRequests()
         setListeners()
         setObservers()

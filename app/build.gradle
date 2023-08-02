@@ -71,8 +71,8 @@ dependencies {
 
     // Koin
     def koinVersion = "2.1.6"
-    implementation "io.insert-koin:koin-core:$koinVersion"
-
+    implementation "io.insert-koin:koin-android:$koinVersion"
+    implementation "io.insert-koin:koin-androidx-viewmodel:$koinVersion"
     // Navigation
     def navigation = "2.6.0"
     implementation "androidx.navigation:navigation-runtime-ktx:$navigation"
