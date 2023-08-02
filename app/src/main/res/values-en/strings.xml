@@ -20,5 +20,6 @@
     <string name="home">Home</string>
     <string name="internet_connection_error">According to the latest, you do not have an internet connection, you cannot view the current data.</string>
     <string name="log_out">Log Out</string>
+    <string name="soon">Coming Soon</string>
 
 </resources>

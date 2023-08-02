@@ -10,7 +10,11 @@ import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.ItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
-class ProductsAdapter(private val productsList: List<ListItems>, val context: Context) :
+class ProductsAdapter(
+    private val productsList: List<ListItems>,
+    val context: Context,
+    val itemClickListener: () -> Unit
+) :
     RecyclerView.Adapter<ProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: ItemProductsBinding) :
@@ -44,6 +48,9 @@ class ProductsAdapter(private val productsList: List<ListItems>, val context: Co
             holder.binding.tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             holder.binding.tvDiscount.text = productsList[position].discount
             holder.binding.tvNewPrice.text = price
+        }
+        holder.binding.root.setOnClickListener {
+            itemClickListener.invoke()
         }
     }
 

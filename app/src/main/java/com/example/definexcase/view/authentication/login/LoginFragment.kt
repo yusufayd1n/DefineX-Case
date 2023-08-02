@@ -187,6 +187,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 binding.tilLoginPassword.hint = getString(R.string.password)
             }
         }
+
         binding.btnLogin.setOnClickListener {
             viewModel.postLogin(
                 LoginRequest(
@@ -195,6 +196,17 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 )
             )
         }
+
+        binding.btnFacebook.setOnClickListener {
+            Toast.makeText(requireContext(), getString(R.string.soon), Toast.LENGTH_SHORT).show()
+        }
+        binding.btnTwitter.setOnClickListener {
+            Toast.makeText(requireContext(), getString(R.string.soon), Toast.LENGTH_SHORT).show()
+        }
+        binding.llForgotPassword.setOnClickListener {
+            Toast.makeText(requireContext(), getString(R.string.soon), Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun isEmailValid(email: CharSequence?): Boolean {

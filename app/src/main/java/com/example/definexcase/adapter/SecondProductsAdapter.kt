@@ -10,7 +10,11 @@ import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.SecondItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
-class SecondProductsAdapter(private val productsList: List<ListItems>, val context: Context) :
+class SecondProductsAdapter(
+    private val productsList: List<ListItems>,
+    val context: Context,
+    val itemClickListener: () -> Unit
+) :
     RecyclerView.Adapter<SecondProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: SecondItemProductsBinding) :

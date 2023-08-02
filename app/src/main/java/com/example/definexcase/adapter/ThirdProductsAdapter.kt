@@ -14,7 +14,11 @@ import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.ThirdItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
-class ThirdProductsAdapter(private val productsList: List<ListItems>, val context: Context) :
+class ThirdProductsAdapter(
+    private val productsList: List<ListItems>,
+    val context: Context,
+    val itemClickListener: () -> Unit
+) :
     RecyclerView.Adapter<ThirdProductsAdapter.ProductsViewHolder>() {
 
     class ProductsViewHolder(val binding: ThirdItemProductsBinding) :
@@ -36,7 +40,8 @@ class ThirdProductsAdapter(private val productsList: List<ListItems>, val contex
         holder.binding.tvTitle.text = productsList[position].description
         holder.binding.ratingBar.rating =
             getRating(productsList[position].ratePercentage.toString())
-        if (holder.binding.ratingBar.rating == 0f) holder.binding.ratingBar.visibility = View.INVISIBLE
+        if (holder.binding.ratingBar.rating == 0f) holder.binding.ratingBar.visibility =
+            View.INVISIBLE
         holder.binding.ivProduct.downloadFromUrl(productsList[position].photoUrl)
         if (productsList[position].oldPrice == null) {
             val price =
@@ -61,12 +66,29 @@ class ThirdProductsAdapter(private val productsList: List<ListItems>, val contex
 
     private fun getRating(rating: String): Float {
         when (rating) {
-            "100" -> { return 5f }
-            "80" -> { return 4f }
-            "60" -> { return 3f }
-            "40" -> { return 2f }
-            "20" -> { return 1f }
-            "0" -> { return 0f }
+            "100" -> {
+                return 5f
+            }
+
+            "80" -> {
+                return 4f
+            }
+
+            "60" -> {
+                return 3f
+            }
+
+            "40" -> {
+                return 2f
+            }
+
+            "20" -> {
+                return 1f
+            }
+
+            "0" -> {
+                return 0f
+            }
         }
         return 0f
     }

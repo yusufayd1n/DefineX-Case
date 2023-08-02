@@ -141,7 +141,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun setAdapter(response: List<ListItems>, rv: RecyclerView) {
-        val productsAdapter = ProductsAdapter(response, requireContext())
+        val productsAdapter = ProductsAdapter(response, requireContext()) {
+            Toast.makeText(requireContext(), R.string.soon, Toast.LENGTH_SHORT).show()
+        }
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
@@ -149,7 +151,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun setSecondAdapter(response: List<ListItems>, rv: RecyclerView) {
-        val productsAdapter = SecondProductsAdapter(response, requireContext())
+        val productsAdapter = SecondProductsAdapter(response, requireContext()) {
+            Toast.makeText(requireContext(), R.string.soon, Toast.LENGTH_SHORT).show()
+        }
         rv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = productsAdapter
@@ -157,7 +161,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun setThirdAdapter(response: List<ListItems>, rv: RecyclerView) {
-        val productsAdapter = ThirdProductsAdapter(response, requireContext())
+        val productsAdapter = ThirdProductsAdapter(response, requireContext()) {
+            Toast.makeText(requireContext(), R.string.soon, Toast.LENGTH_SHORT).show()
+        }
         rv.layoutManager =
             GridLayoutManager(requireContext(), 2)
         rv.adapter = productsAdapter
