@@ -17,8 +17,7 @@
             android:layout_margin="4dp"
             android:contentDescription="@string/app_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/placeholder" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_title"

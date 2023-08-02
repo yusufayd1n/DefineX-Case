@@ -2,6 +2,7 @@ package com.example.definexcase.db
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.definexcase.api.model.listResponse.ListItems
 

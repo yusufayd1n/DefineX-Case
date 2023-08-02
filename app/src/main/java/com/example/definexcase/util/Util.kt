@@ -11,7 +11,7 @@ import com.example.definexcase.R
 fun ImageView.downloadFromUrl(url: String?) {
     Glide.with(context)
         .load(url)
-        .placeholder(R.drawable.realplaceholder)
+        .placeholder(R.drawable.placeholder)
         .error(R.drawable.error)
         .into(this)
 }

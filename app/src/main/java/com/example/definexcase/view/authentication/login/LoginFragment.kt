@@ -1,6 +1,5 @@
 package com.example.definexcase.view.authentication.login
 
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -14,9 +13,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.ViewModelProvider
 import com.example.definexcase.base.BaseFragment
-import com.example.definexcase.MainActivity
+import com.example.definexcase.view.MainActivity
 import com.example.definexcase.R
 import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.consts.Constants.Companion.TOKEN
@@ -28,18 +26,14 @@ import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
-    var token: String = ""
+
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by stateViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentLoginBinding.inflate(layoutInflater)
-        token = loadData(requireContext(), TOKEN).toString()
-        if (token.isNotEmpty() || token != "") {
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-        }
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -193,6 +187,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 binding.tilLoginPassword.hint = getString(R.string.password)
             }
         }
+
         binding.btnLogin.setOnClickListener {
             viewModel.postLogin(
                 LoginRequest(
@@ -201,6 +196,17 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 )
             )
         }
+
+        binding.btnFacebook.setOnClickListener {
+            Toast.makeText(requireContext(), getString(R.string.soon), Toast.LENGTH_SHORT).show()
+        }
+        binding.btnTwitter.setOnClickListener {
+            Toast.makeText(requireContext(), getString(R.string.soon), Toast.LENGTH_SHORT).show()
+        }
+        binding.llForgotPassword.setOnClickListener {
+            Toast.makeText(requireContext(), getString(R.string.soon), Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun isEmailValid(email: CharSequence?): Boolean {
