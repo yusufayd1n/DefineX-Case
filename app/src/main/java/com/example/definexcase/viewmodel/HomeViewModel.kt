@@ -2,6 +2,7 @@ package com.example.definexcase.viewmodel
 
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.definexcase.api.CaseAPIService
 import com.example.definexcase.api.model.listResponse.ListItems
@@ -40,7 +41,12 @@ class HomeViewModel(application: Application, val caseAPIService: CaseAPIService
                     override fun onSuccess(t: ListsResponse) {
                         storeListInSQLite(
                             t.list,
-                            showList(t.list, firstListLiveData, firstListError, firstListLoading),
+                            showList(
+                                t.list,
+                                firstListLiveData,
+                                firstListError,
+                                firstListLoading
+                            ),
                             1
                         )
                     }
@@ -77,9 +83,7 @@ class HomeViewModel(application: Application, val caseAPIService: CaseAPIService
                         getListFromSQLite(secondListLiveData, secondListError, secondListLoading, 2)
                         e.printStackTrace()
                     }
-
                 })
-
         )
     }
 
@@ -93,7 +97,12 @@ class HomeViewModel(application: Application, val caseAPIService: CaseAPIService
                     override fun onSuccess(t: ListsResponse) {
                         storeListInSQLite(
                             t.list,
-                            showList(t.list, thirdListLiveData, thirdListError, thirdListLoading),
+                            showList(
+                                t.list,
+                                thirdListLiveData,
+                                thirdListError,
+                                thirdListLoading
+                            ),
                             3
                         )
                     }
@@ -137,7 +146,9 @@ class HomeViewModel(application: Application, val caseAPIService: CaseAPIService
     ) {
         launch {
             val dao = ProductsDataBase(getApplication()).productsDao()
-            dao.deleteAll()
+            if (listId == 1) {
+                dao.deleteAll()
+            }
             products.forEach {
                 it.listId = listId
             }

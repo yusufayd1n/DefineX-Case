@@ -68,6 +68,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             binding.listLoading.visibility = View.VISIBLE
             makeAPIRequests()
             binding.swipeRefreshLayout.isRefreshing = false
+            checkForInternetInFragment()
         }
     }
 
