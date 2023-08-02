@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.definexcase.api.model.listResponse.ListItems
-import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.ItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
 class ProductsAdapter(
     private val productsList: List<ListItems>,
     val context: Context,
-    val itemClickListener: () -> Unit
+    private val itemClickListener: () -> Unit
 ) :
     RecyclerView.Adapter<ProductsAdapter.ProductsViewHolder>() {
 

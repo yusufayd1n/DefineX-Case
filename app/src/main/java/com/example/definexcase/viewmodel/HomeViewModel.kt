@@ -13,7 +13,7 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
-class HomeViewModel(application: Application, val caseAPIService: CaseAPIService) :
+class HomeViewModel(application: Application, private val caseAPIService: CaseAPIService) :
     BaseViewModel(application) {
     private val disposable = CompositeDisposable()
 

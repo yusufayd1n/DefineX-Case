@@ -10,14 +10,13 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.definexcase.R
 import com.example.definexcase.api.model.listResponse.ListItems
-import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.ThirdItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
 class ThirdProductsAdapter(
     private val productsList: List<ListItems>,
     val context: Context,
-    val itemClickListener: () -> Unit
+    private val itemClickListener: () -> Unit
 ) :
     RecyclerView.Adapter<ThirdProductsAdapter.ProductsViewHolder>() {
 
