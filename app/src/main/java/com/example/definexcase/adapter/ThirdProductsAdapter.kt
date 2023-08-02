@@ -10,14 +10,13 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.definexcase.R
 import com.example.definexcase.api.model.listResponse.ListItems
-import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.ThirdItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
 class ThirdProductsAdapter(
     private val productsList: List<ListItems>,
     val context: Context,
-    val itemClickListener: () -> Unit
+    private val itemClickListener: () -> Unit
 ) :
     RecyclerView.Adapter<ThirdProductsAdapter.ProductsViewHolder>() {
 
@@ -37,31 +36,44 @@ class ThirdProductsAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
-        holder.binding.tvTitle.text = productsList[position].description
-        holder.binding.ratingBar.rating =
-            getRating(productsList[position].ratePercentage.toString())
-        if (holder.binding.ratingBar.rating == 0f) holder.binding.ratingBar.visibility =
-            View.INVISIBLE
-        holder.binding.ivProduct.downloadFromUrl(productsList[position].photoUrl)
-        if (productsList[position].oldPrice == null) {
-            val price =
-                productsList[position].price.value.toString() + " " + productsList[position].price.currency + "US"
-            holder.binding.tvOldPrice.typeface =
-                ResourcesCompat.getFont(context, R.font.roboto_medium)
-            holder.binding.tvOldPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-            holder.binding.tvDot.visibility = View.GONE
-            holder.binding.tvOldPrice.text = price
-        } else {
-            holder.binding.tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-            val price =
-                productsList[position].price.value.toString() + " " + productsList[position].price.currency + "US"
-            val oldPrice =
-                productsList[position].oldPrice?.value.toString() + " " + productsList[position].oldPrice?.currency + "US"
-            holder.binding.tvOldPrice.text = oldPrice
-            holder.binding.tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            holder.binding.tvDiscount.text = productsList[position].discount
-            holder.binding.tvNewPrice.text = price
+        holder.apply {
+            binding.tvTitle.text = productsList[position].description
+            binding.ratingBar.rating =
+                getRating(productsList[position].ratePercentage.toString())
+            if (binding.ratingBar.rating == 0f) binding.ratingBar.visibility =
+                View.INVISIBLE
+            binding.ivProduct.downloadFromUrl(productsList[position].photoUrl)
+            if (productsList[position].oldPrice == null) {
+                val price =
+                    productsList[position].price.value.toString() + " " + productsList[position].price.currency + "US"
+
+                binding.tvOldPrice.typeface =
+                    ResourcesCompat.getFont(context, R.font.roboto_medium)
+                binding.tvOldPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+                binding.tvDot.visibility = View.GONE
+                binding.tvOldPrice.text = price
+            } else {
+                val price =
+                    productsList[position].price.value.toString() + " " + productsList[position].price.currency + "US"
+                val oldPrice =
+                    productsList[position].oldPrice?.value.toString() + " " + productsList[position].oldPrice?.currency + "US"
+
+                binding.tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                binding.tvOldPrice.text = oldPrice
+                binding.tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                binding.tvDiscount.text = productsList[position].discount
+                binding.tvNewPrice.text = price
+
+                binding.root.setOnClickListener {
+                    itemClickListener.invoke()
+                }
+
+
+            }
+
         }
+
+
     }
 
     private fun getRating(rating: String): Float {

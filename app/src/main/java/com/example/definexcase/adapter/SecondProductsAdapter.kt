@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.definexcase.api.model.listResponse.ListItems
-import com.example.definexcase.api.model.listResponse.ListsResponse
 import com.example.definexcase.databinding.SecondItemProductsBinding
 import com.example.definexcase.util.downloadFromUrl
 
 class SecondProductsAdapter(
     private val productsList: List<ListItems>,
     val context: Context,
-    val itemClickListener: () -> Unit
+    private val itemClickListener: () -> Unit
 ) :
     RecyclerView.Adapter<SecondProductsAdapter.ProductsViewHolder>() {
 
@@ -33,15 +32,20 @@ class SecondProductsAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
-        holder.binding.tvTitle.text = productsList[position].description
-        holder.binding.ivProduct.downloadFromUrl(productsList[position].photoUrl)
         val price =
             productsList[position].price.value.toString() + " " + productsList[position].price.currency + "US"
         val oldPrice =
             productsList[position].oldPrice?.value.toString() + " " + productsList[position].oldPrice?.currency + "US"
-        holder.binding.tvOldPrice.text = oldPrice
-        holder.binding.tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-        holder.binding.tvNewPrice.text = price
+        holder.apply {
+            binding.tvTitle.text = productsList[position].description
+            binding.ivProduct.downloadFromUrl(productsList[position].photoUrl)
+            binding.tvOldPrice.text = oldPrice
+            binding.tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binding.tvNewPrice.text = price
+            binding.root.setOnClickListener {
+                itemClickListener.invoke()
+            }
+        }
 
     }
 
