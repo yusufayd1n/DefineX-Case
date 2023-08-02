@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.example.definexcase.base.BaseFragment
-import com.example.definexcase.MainActivity
+import com.example.definexcase.view.MainActivity
 import com.example.definexcase.R
 import com.example.definexcase.api.model.LoginRequest
 import com.example.definexcase.consts.Constants.Companion.TOKEN
@@ -26,18 +26,14 @@ import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
-    var token: String = ""
+
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by stateViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentLoginBinding.inflate(layoutInflater)
-        token = loadData(requireContext(), TOKEN).toString()
-        if (token.isNotEmpty() || token != "") {
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-        }
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
