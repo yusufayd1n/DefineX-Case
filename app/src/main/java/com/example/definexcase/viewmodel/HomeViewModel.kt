@@ -2,7 +2,6 @@ package com.example.definexcase.viewmodel
 
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.definexcase.api.CaseAPIService
 import com.example.definexcase.api.model.listResponse.ListItems
@@ -113,7 +112,6 @@ class HomeViewModel(application: Application, val caseAPIService: CaseAPIService
                     }
 
                 })
-
         )
     }
 
