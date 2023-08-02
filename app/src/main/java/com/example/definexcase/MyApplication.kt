@@ -2,6 +2,8 @@ package com.example.definexcase
 
 import android.app.Application
 import com.example.definexcase.di.appModule
+import com.example.definexcase.di.databaseModule
+import com.example.definexcase.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -10,7 +12,7 @@ class MyApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MyApplication)
-            modules(appModule)
+            modules(listOf(appModule, networkModule, databaseModule))
         }
     }
 }
