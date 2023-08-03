@@ -11,8 +11,11 @@ In order to use the project, it is sufficient to use the test@test.com mail and 
 
 After logging in to the project, as long as you do not log out from the profile tab, the app keeps your information in its memory and automatically redirects you to the main page.
 If you have an internet connection, the app pulls up-to-date data from the services and displays this data to you, while saving it to the database, and then if you enter the app without an internet connection, the app will show you the data in the database.
+
 The project has a deeplink structure for www.teamdefinex.com.
+
 There is a pull to refresh feature on the homepage.
+
 Firebase crashlytics is integrated and can be viewed by the crashs firebase console.
 
 In my project, there is no dependency other than the login information I mentioned above.
