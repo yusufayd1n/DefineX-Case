@@ -20,6 +20,8 @@ Firebase crashlytics is integrated and can be viewed by the crashs firebase cons
 
 In my project, there is no dependency other than the login information I mentioned above.
 
+There is localization in the project and while the default language is Turkish, it also supports English.
+
 In the video below, there is a short video I shot to introduce the project, those who are curious can take a look.
 
 https://github.com/yusufayd1n/DefineX-Case/assets/78793991/62f2c87c-2576-4a04-aaf0-338bde1ddf83
