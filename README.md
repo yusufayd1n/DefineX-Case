@@ -22,15 +22,25 @@ In the video below, there is a short video I shot to introduce the project, thos
 https://github.com/yusufayd1n/DefineX-Case/assets/78793991/62f2c87c-2576-4a04-aaf0-338bde1ddf83
 
 USED TECHNOLOGIES
+
 -MVVM
+
 -LiveData
+
 -RecyclerView
+
 -Navigation
 
 USED LIBRARİES
+
 -Coroutines
+
 -Retrofit
+
 -Glide
+
 -RxJava
+
 -Koin
+
 -Room
