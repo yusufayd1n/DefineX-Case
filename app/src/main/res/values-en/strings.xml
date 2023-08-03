@@ -21,5 +21,5 @@
     <string name="internet_connection_error">According to the latest, you do not have an internet connection, you cannot view the current data.</string>
     <string name="log_out">Log Out</string>
     <string name="soon">Coming Soon</string>
-
+    <string name="empty_login_error">Make sure you enter your email and password!</string>
 </resources>

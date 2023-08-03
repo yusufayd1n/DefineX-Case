@@ -1,6 +1,5 @@
 package com.example.definexcase.di
 
-import android.content.Context
 import androidx.room.Room
 import com.example.definexcase.api.CaseAPIService
 import com.example.definexcase.api.ServiceInterface
@@ -18,6 +17,7 @@ val appModule = module {
     viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { LoginViewModel(get()) }
 }
+
 val networkModule = module {
     single { CaseAPIService(get()) }
     single {

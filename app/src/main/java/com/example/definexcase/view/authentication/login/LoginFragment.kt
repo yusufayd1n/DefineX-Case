@@ -189,12 +189,16 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         }
 
         binding.btnLogin.setOnClickListener {
-            viewModel.postLogin(
-                LoginRequest(
-                    binding.etLoginEmail.text.toString(),
-                    binding.etLoginPassword.text.toString()
+            if (binding.etLoginEmail.text.isNullOrEmpty() || binding.etLoginPassword.text.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), getString(R.string.password), Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.postLogin(
+                    LoginRequest(
+                        binding.etLoginEmail.text.toString(),
+                        binding.etLoginPassword.text.toString()
+                    )
                 )
-            )
+            }
         }
 
         binding.btnFacebook.setOnClickListener {
