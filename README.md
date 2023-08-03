@@ -14,3 +14,8 @@ Eğer internet bağlantınız varsa app servislerden güncel verileri çeker ve 
 
 Projemde yukarıda belirttiğim login bilgileri dışında bir bağımlılık yoktur.
 
+
+Aşağıda ki videoda projeyi tanıtmak için çektiğim kısa bir video mevcut, merak edenler göz atabilir.
+
+https://github.com/yusufayd1n/DefineX-Case/assets/78793991/62f2c87c-2576-4a04-aaf0-338bde1ddf83
+
